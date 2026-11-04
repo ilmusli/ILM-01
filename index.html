@@ -124,10 +124,14 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}table.t td{padding:9p
 <section class="view" id="v-contact">
 <div class="page"><h1>Contacts</h1>
 <p>Questions about an order, a size or a piece? Send us a message and we will reply by email.</p>
-<form id="cf">
-<label>Name<input name="n" required autocomplete="name"></label>
-<label>Email<input type="email" name="e" required autocomplete="email"></label>
-<label>Message<textarea name="m" required></textarea></label>
+<form id="cf" action="https://formsubmit.co/musligoes@gmail.com" method="POST">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="New message from ilmusli">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" id="nx" value="">
+<label>Name<input name="name" required autocomplete="name"></label>
+<label>Email<input type="email" name="email" required autocomplete="email"></label>
+<label>Message<textarea name="message" required></textarea></label>
 <button class="btn" type="submit">SEND MESSAGE</button>
 <div class="ok" id="ok" role="status">Message sent. We will reply by email.</div>
 </form>
@@ -150,6 +154,11 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}table.t td{padding:9p
 <button class="btn solid" type="submit" id="lb">LOGIN</button>
 <button class="link-btn" type="button" id="lm" style="justify-self:start">Create an account</button>
 <div class="ok" id="lo" role="status"></div></form></div></section>
+<section class="view" id="v-profile"><div class="page"><h1>Profile</h1>
+<div class="ab"><h2>NAME</h2><p id="pn"></p></div>
+<div class="ab"><h2>EMAIL</h2><p id="pe"></p></div>
+<div class="more" style="justify-content:flex-start"><button class="btn" type="button" id="lout">LOGOUT</button></div>
+</div></section>
 </main>
 <footer>
 <p>© 2026 ilmusli. All rights reserved.</p>
@@ -181,9 +190,9 @@ return '<article class="item link" tabindex="0" role="link" data-id="'+id+'">'+a
 function fill(el,ids){el.innerHTML=ids.map(card).join('');el.querySelectorAll('.item').forEach(function(it){var id=it.dataset.id;it.onclick=function(){location.hash='p-'+id};it.onkeydown=function(e){if(e.key==='Enter')location.hash='p-'+id}})}
 fill(document.getElementById('g-home'),[7,8,9,10,1,2,3]);
 fill(document.getElementById('g-all'),[7,8,9,10,1,2,3,4,5,6]);
-var views=['home','products','about','contact','archive','cart','login','product'],mb=document.getElementById('mb'),dr=document.getElementById('dr'),cart=[],user='',sel={};
+var views=['home','products','about','contact','archive','cart','login','product','profile'],mb=document.getElementById('mb'),dr=document.getElementById('dr'),cart=[],user='',sel={};
 try{cart=JSON.parse(localStorage.getItem('ilm-cart')||'[]');user=localStorage.getItem('ilm-user')||''}catch(e){}
-function hd(){var q=0;cart.forEach(function(c){q+=c.q});document.getElementById('cc').textContent=q;document.getElementById('cc').style.display=q?'grid':'none';document.getElementById('lg').textContent=user?user.toUpperCase():'LOGIN'}
+function hd(){var q=0;cart.forEach(function(c){q+=c.q});document.getElementById('cc').textContent=q;document.getElementById('cc').style.display=q?'grid':'none';var l=document.getElementById('lg');l.textContent=user?user.toUpperCase():'LOGIN';l.setAttribute('href',user?'#profile':'#login')}
 function save(){try{localStorage.setItem('ilm-cart',JSON.stringify(cart))}catch(e){}hd()}
 function opts(a,k,cur){return a.map(function(v,i){return '<button class="opt" data-'+k+'="'+i+'" aria-pressed="'+(i===cur)+'">'+v+'</button>'}).join('')}
 function draw(){var p=P[sel.id],sp=sale(sel.id),d=p[2],q=sel.q,v=document.getElementById('v-product');
@@ -213,21 +222,12 @@ document.getElementById('lf').onsubmit=function(e){e.preventDefault();var f=this
 function route(){var h=(location.hash||'#home').slice(1),m=/^p-(\d+)$/.exec(h),v='home';
 if(m&&P[m[1]]){v='product';pr(+m[1])}else if(views.indexOf(h)>=0&&h!=='product')v=h;
 if(v==='cart')rc();
+if(v==='profile'){if(window.authReady&&!window.user){location.hash='login';return}if(window.renderProfile)window.renderProfile()}
 views.forEach(function(x){document.getElementById('v-'+x).classList.toggle('active',x===v)});
 dr.classList.remove('open');mb.classList.remove('open');mb.setAttribute('aria-expanded','false');window.scrollTo(0,0)}
 mb.onclick=function(){var o=dr.classList.toggle('open');mb.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)};
-document.getElementById('cf').onsubmit=async function(e){
-e.preventDefault();
-var f=this.elements,form=this,btn=form.querySelector('button[type=submit]');
-btn.disabled=true;
-try{
-var r=await fetch('https://formsubmit.co/ajax/musligoes@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:f.n.value,email:f.e.value,message:f.m.value,_subject:'New message from ilmusli',_replyto:f.e.value})});
-if(!r.ok)throw 0;
-document.getElementById('ok').style.display='block';
-form.reset();
-}catch(x){alert('Something went wrong, please try again.')}
-btn.disabled=false;
-};
+(function(){var base=location.href.split('#')[0].split('?')[0];document.getElementById('nx').value=base+'?sent=1#contact';
+if(/[?&]sent=1/.test(location.search)){document.getElementById('ok').style.display='block';location.hash='contact'}})();
 document.getElementById('fq').onclick=function(){var o=this.getAttribute('aria-expanded')!=='true';this.setAttribute('aria-expanded',o);document.getElementById('fqb').style.display=o?'block':'none'};
 window.addEventListener('hashchange',route);hd();route();
 </script>
@@ -253,10 +253,12 @@ lf.onsubmit=async e=>{
       const c=await createUserWithEmailAndPassword(auth,f.e.value,f.p.value);
       if(f.n.value) await updateProfile(c.user,{displayName:f.n.value});
       window.user=f.n.value||f.e.value.split('@')[0];hd();
+      if(window.reg)document.getElementById('lm').click();
     }else{
       await signInWithEmailAndPassword(auth,f.e.value,f.p.value);
     }
-    lf.reset();lo.style.display='none';location.hash='home';
+    lf.reset();lo.style.display='none';location.hash='profile';
+    if(window.renderProfile)window.renderProfile();
   }catch(err){
     msg(({
       'auth/invalid-credential':'Wrong email or password.',
@@ -267,14 +269,21 @@ lf.onsubmit=async e=>{
     })[err.code]||err.message);
   }
 };
+window.authReady=false;
 onAuthStateChanged(auth,u=>{
   window.user=u?(u.displayName||u.email.split('@')[0]):'';
   try{localStorage.setItem('ilm-user',window.user)}catch(x){}
-  hd();
+  window.authReady=true;
+  hd();route();
 });
-document.getElementById('lg').addEventListener('click',e=>{
-  if(window.user){e.preventDefault();signOut(auth)}
-});
+window.renderProfile=()=>{
+  const u=auth.currentUser;if(!u)return;
+  document.getElementById('pn').textContent=u.displayName||u.email.split('@')[0];
+  document.getElementById('pe').textContent=u.email;
+};
+document.getElementById('lout').onclick=async()=>{
+  await signOut(auth);location.hash='home';
+};
 </script>
 </body>
 </html>
