@@ -555,18 +555,31 @@ $('avp').onclick=e=>{
   if(a==='photo'){$('pp').click();return}
   av=a;setAv();saveAv();
 };
-$('pp').onchange=e=>{
-  const f=e.target.files[0];if(!f)return;
-  const img=new Image(),url=URL.createObjectURL(f);
-  img.onload=()=>{
-    const n=256,c=document.createElement('canvas');c.width=c.height=n;
-    const m=Math.min(img.width,img.height);
-    c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,n,n);
-    photo=c.toDataURL('image/jpeg',.8);av='photo';URL.revokeObjectURL(url);setAv();saveAv();
+function openCrop(url){
+  const VW=256, ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px;box-sizing:border-box';
+  ov.innerHTML='<div id="cv" style="position:relative;width:'+VW+'px;height:'+VW+'px;max-width:80vw;max-height:80vw;overflow:hidden;background:#111;touch-action:none;cursor:move"><img id="ci" src="'+url+'" draggable="false" style="position:absolute;left:0;top:0;max-width:none;user-select:none;pointer-events:none"></div><input id="cz" type="range" min="1" max="3" step="0.01" value="1" style="width:min(256px,80vw)"><div style="display:flex;gap:10px"><button type="button" id="cc" class="btn" style="background:#fff">CANCEL</button><button type="button" id="cs" class="btn solid">SAVE</button></div>';
+  document.body.appendChild(ov);
+  const img=ov.querySelector('#ci'), cv=ov.querySelector('#cv'), zr=ov.querySelector('#cz');
+  let W=0,H=0,base=1,sc=1,x=0,y=0,drag=null;
+  const V=()=>cv.clientWidth;
+  function clamp(){const w=W*base*sc,h=H*base*sc,v=V();x=Math.min(0,Math.max(v-w,x));y=Math.min(0,Math.max(v-h,y))}
+  function apply(){clamp();img.style.width=(W*base*sc)+'px';img.style.height=(H*base*sc)+'px';img.style.left=x+'px';img.style.top=y+'px'}
+  function start(){W=img.naturalWidth;H=img.naturalHeight;if(!W)return;base=Math.max(V()/W,V()/H);sc=1;const v=V();x=(v-W*base)/2;y=(v-H*base)/2;apply()}
+  img.onload=start; if(img.complete&&img.naturalWidth)start();
+  img.onerror=()=>{ov.remove();URL.revokeObjectURL(url);pm('Could not read this image.',1)};
+  zr.oninput=()=>{const v=V(),cx=(v/2-x)/(W*base*sc),cy=(v/2-y)/(H*base*sc);sc=+zr.value;x=v/2-cx*W*base*sc;y=v/2-cy*H*base*sc;apply()};
+  cv.onpointerdown=e=>{drag={px:e.clientX,py:e.clientY,x,y};cv.setPointerCapture(e.pointerId)};
+  cv.onpointermove=e=>{if(!drag)return;x=drag.x+(e.clientX-drag.px);y=drag.y+(e.clientY-drag.py);apply()};
+  cv.onpointerup=cv.onpointercancel=()=>{drag=null};
+  ov.querySelector('#cc').onclick=()=>{ov.remove();URL.revokeObjectURL(url)};
+  ov.querySelector('#cs').onclick=()=>{
+    const v=V(),k=base*sc,c=document.createElement('canvas');c.width=c.height=256;
+    c.getContext('2d').drawImage(img,-x/k,-y/k,v/k,v/k,0,0,256,256);
+    photo=c.toDataURL('image/jpeg',.8);av='photo';URL.revokeObjectURL(url);ov.remove();setAv();saveAv();
   };
-  img.onerror=()=>pm('Could not read this image.',1);
-  img.src=url;e.target.value='';
-};
+}
+$('pp').onchange=e=>{const f=e.target.files[0];if(!f)return;openCrop(URL.createObjectURL(f));e.target.value='';};
 $('ptabs').onclick=e=>{const b=e.target.closest('button');if(b)showTab(b.dataset.t)};
 $('pedit').onclick=()=>{
   const f=$('pf'),d=window.ud||{};
