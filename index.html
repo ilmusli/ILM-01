@@ -65,6 +65,7 @@ footer .l{font-size:10px;color:var(--muted);line-height:1.6;max-width:780px;marg
 .drop .gn{margin:-6px 0 4px}.drop .gn p{margin:0 auto;max-width:300px}.drop .arw{display:block;width:fit-content;margin:10px auto 0;color:var(--text);text-decoration:none;line-height:0;padding:6px 2px}.drop .arw:hover,.drop .arw:focus-visible{color:var(--muted)}
 .nb{margin:48px 0 6px;padding-top:16px;border-top:1px solid var(--line)}.nb form{display:flex;gap:5px;max-width:none;width:100%;margin:0}.nb input{flex:1;min-width:0;font-size:10px;padding:6px 8px}.nb .btn{font-size:8px;letter-spacing:.1em;padding:6px 8px;white-space:nowrap}.nb .msg{font-size:10px;margin-top:6px;min-height:0}
 @media(prefers-reduced-motion:reduce){.logo{animation:none}}
+.sec{border:1px solid var(--line);margin:18px 0 0;max-width:460px}.sr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px}.sr+.sr{border-top:1px solid var(--line)}.sl{display:block;font-size:10px;letter-spacing:.14em;color:var(--muted);margin-bottom:4px}.sr b{font-size:15px;letter-spacing:.12em;font-weight:500}.rdm{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px;padding:12px 14px;border:1px solid var(--line);font-size:12px;letter-spacing:.06em}.rdm small{color:var(--muted);font-size:11px;letter-spacing:.02em}.sn{display:block;font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:.02em}.sr .btn{padding:8px 14px;font-size:10px;white-space:nowrap}#fidt{font-size:13px}
 .acts{display:flex;gap:16px;align-items:center;font-size:11px;letter-spacing:.12em;z-index:30}
 .acts a{color:var(--text);text-decoration:none}
 .item.link{cursor:pointer}.item.link:hover .ph,.item.link:focus-visible .ph{border-color:#999}
@@ -177,8 +178,10 @@ form.ef{display:none;margin-top:18px;padding-top:18px;border-top:1px solid var(-
 form.ef.open{display:grid}
 .efb{display:flex;align-items:center;gap:18px}
 #pm:empty{display:none}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);margin-top:24px;border-bottom:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;border-bottom:1px solid var(--line)}
 .tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:14px 0;font:inherit;font-size:10px;letter-spacing:.14em;color:var(--muted);cursor:pointer;margin-bottom:-1px}
+.tabs button{line-height:1.35;padding-left:2px;padding-right:2px}@media(max-width:700px){.tabs button{letter-spacing:.06em}}
+.ptb{padding:22px 4px 6px}.ptb b{display:block;font-size:34px;font-weight:500;letter-spacing:.04em;margin:6px 0 12px}.pbar{height:3px;background:var(--line);margin-bottom:10px}.pbar i{display:block;height:100%;background:var(--text)}.ptb small{font-size:12px;color:var(--muted)}
 .tabs button.on{color:var(--text);border-bottom-color:var(--text)}
 .emp{padding:46px 10px;text-align:center;font-size:12px;line-height:1.8;color:var(--muted)}
 .ord{border:1px solid var(--line);padding:16px;margin-top:14px}
@@ -271,9 +274,11 @@ footer .fl{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}footer .f
 <section class="view" id="v-cart"><div class="page"><h1>Cart</h1><div id="cl"></div></div></section>
 <section class="view" id="v-login"><div class="page"><h1 id="lt">Login</h1>
 <form id="lf"><label id="ln" style="display:none">Name<input name="n" autocomplete="name"></label>
-<label>Email<input type="email" name="e" required autocomplete="email"></label>
+<label>Email or ILM code<input type="text" name="e" required autocomplete="username" autocapitalize="off" spellcheck="false"></label>
 <label>Password<input type="password" name="p" required minlength="6" autocomplete="current-password"></label>
 <button class="btn solid" type="submit" id="lb">LOGIN</button>
+<button class="btn" type="button" id="lfid" style="display:none">LOGIN WITH FACE ID</button>
+<button class="link-btn" type="button" id="lfo" style="display:none;justify-self:start">Not you? Sign out of this device</button>
 <button class="link-btn" type="button" id="lm" style="justify-self:start">Create an account</button>
 <div class="ok" id="lo" role="status"></div><p class="fg">Forgot your password? Contact <a href="mailto:musligoes@gmail.com">musligoes@gmail.com</a></p></form></div></section>
 <section class="view" id="v-profile"><div class="page" style="padding-top:36px">
@@ -294,6 +299,10 @@ footer .fl{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}footer .f
 <input type="file" id="pp" accept="image/*" hidden>
 <div class="who"><div class="nm" id="dn"></div><div class="em2" id="pe"></div>
 <div class="ad2"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span id="da"></span></div></div>
+<div class="sec"><div class="sr"><div><span class="sl">MEMBER ID</span><b id="mid">—</b></div></div>
+<div class="sr"><div><span class="sl">ILMUSLI POINTS</span><b id="ilmp">0</b></div></div>
+<div class="sr"><div><span class="sl">ILM CODE</span><b id="ilmc">—</b></div><button class="btn" type="button" id="ilmcp">COPY</button></div>
+<div class="sr"><div><span class="sl">FACE ID</span><span id="fidt">Off</span></div><button class="btn" type="button" id="fidb">ENABLE</button></div></div>
 <div class="pb"><button class="btn" type="button" id="pedit">EDIT PROFILE</button><button class="btn" type="button" id="lout">LOGOUT</button></div>
 <div class="msg" id="pm" role="status"></div>
 <div style="margin-top:10px"><a class="btn" id="padm" href="#admin" style="display:none">ADMIN PANEL</a></div>
@@ -308,9 +317,10 @@ footer .fl{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}footer .f
 <div class="efb"><button class="btn solid" type="submit" id="psb">SAVE</button><button class="link-btn" type="button" id="pcx" style="margin-top:0">Cancel</button></div>
 <div class="ok" id="ps" role="status"></div>
 </form>
-<div class="tabs" id="ptabs"><button class="on" data-t="col" type="button">COLLECTION</button><button data-t="ord" type="button">ORDERS</button><button data-t="wl" type="button">WISHLIST</button></div>
+<div class="tabs" id="ptabs"><button class="on" data-t="col" type="button">COLLECTION</button><button data-t="ord" type="button">ORDERS</button><button data-t="wl" type="button">WISHLIST</button><button data-t="pts" type="button">POINTS</button></div>
 <div id="tcol"><div class="grid" id="pcol" style="padding-top:20px"></div><div class="emp" id="pce"></div></div>
 <div id="tord" style="display:none"></div>
+<div id="tpts" style="display:none"></div>
 <div id="twl" style="display:none"><div class="grid" id="pwl" style="padding-top:20px"></div><div class="emp" id="pwe"></div></div>
 <div class="nb" id="nbox"><form id="df"><input type="email" id="de" placeholder="Your email" required autocomplete="email"><button class="btn solid" type="submit">NOTIFY ME</button></form><div class="msg" id="dm" role="status"></div></div>
 </div></section>
@@ -400,10 +410,15 @@ function rc(){var el=document.getElementById('cl');if(!cart.length){el.innerHTML
 var t=0,sv=0,h='';cart.forEach(function(c,i){var p=P[c.id];t+=sale(c.id)*c.q;sv+=(p[1]-sale(c.id))*c.q;
 h+='<div class="crow"><div class="'+art[c.id].c+'">'+art[c.id].h+'</div><div>'+p[0]+'<br><small>'+p[3][c.c]+' \u00b7 '+p[4][c.s]+'</small><br><span class="qty" style="margin-top:8px"><button data-i="'+i+'" data-d="-1" aria-label="Less">\u2212</button><span>'+c.q+'</span><button data-i="'+i+'" data-d="1" aria-label="More">+</button></span><br><button class="link-btn" data-i="'+i+'" data-d="x">Remove</button></div><div>'+F(sale(c.id)*c.q)+'</div></div>'});
 var cd=window.code?Math.round(t*(window.pct||0)/100):0,sh=window.free?0:(SHIP[window.gov]||0);
+var pts=(window.user&&window.ud&&window.ud.points)||0,un=[];cart.forEach(function(c){if(+c.id===12)return;for(var k=0;k<c.q;k++)un.push(sale(c.id))});un.sort(function(a,b){return b-a});
+var maxR=Math.min(1,Math.floor(pts/1000),un.length);if((window.redeem||0)>maxR)window.redeem=maxR;
+var rn=window.redeem||0,rv=0;for(var k=0;k<rn;k++)rv+=un[k];rv=Math.min(rv,t-cd);
+var rdh=window.user?'<div class="rdm"><span>ILMUSLI POINTS: <b>'+pts.toLocaleString('en-US')+'</b></span>'+(maxR>0?'<button class="btn" type="button" data-rd="1">'+(rn?'REMOVE FREE PIECE':'USE 1,000 POINTS: 1 FREE PIECE')+'</button>':(pts<1000?'<small>Reach 1,000 points to get a free piece.</small>':''))+'</div>':'';
 h+=cof()+'<label style="margin-top:18px">Governorate<select id="gv"><option value="">Choose...</option>'+Object.keys(SHIP).sort().map(function(k){return'<option'+(window.gov===k?' selected':'')+'>'+k+'</option>'}).join('')+'</select></label>'+arl()+'<label>Promo code<span style="display:flex;gap:8px"><input id="pc" value="'+(window.code||'')+'" style="flex:1;min-width:0"><button class="btn" type="button" data-pc="1">APPLY</button></span></label>';
-h+='<table class="t" style="margin-top:18px">'+(sv?'<tr><td>Discounts</td><td>\u2212'+F(sv)+'</td></tr>':'')+(cd?'<tr><td>Promo '+window.code+'</td><td>\u2212'+F(cd)+'</td></tr>':'')+'<tr><td>Shipping</td><td>'+(window.free?'Free':window.gov?F(sh):'\u2014')+'</td></tr><tr><td>Payment</td><td><select id=\"pm\" style=\"font:inherit;border:1px solid var(--line);padding:6px;background:#fff\"><option>Cash on delivery</option><option>InstaPay</option><option>E-wallet</option></select></td></tr><tr class="tot"><td>Total</td><td>'+F(t-cd+sh)+'</td></tr></table><div class="btns"><button class="btn solid" data-co="1">CHECKOUT</button></div><div class="msg" id="cm" role="status"></div>';
+h+=rdh;
+h+='<table class="t" style="margin-top:18px">'+(sv?'<tr><td>Discounts</td><td>\u2212'+F(sv)+'</td></tr>':'')+(cd?'<tr><td>Promo '+window.code+'</td><td>\u2212'+F(cd)+'</td></tr>':'')+(rv?'<tr><td>ILMUSLI points ('+(rn*1000).toLocaleString('en-US')+')</td><td>\u2212'+F(rv)+'</td></tr>':'')+'<tr><td>Shipping</td><td>'+(window.free?'Free':window.gov?F(sh):'\u2014')+'</td></tr><tr><td>Payment</td><td><select id=\"pm\" style=\"font:inherit;border:1px solid var(--line);padding:6px;background:#fff\"><option>Cash on delivery</option><option>InstaPay</option><option>E-wallet</option></select></td></tr><tr class="tot"><td>Total</td><td>'+F(t-cd-rv+sh)+'</td></tr></table><div class="btns"><button class="btn solid" data-co="1">CHECKOUT</button></div><div class="msg" id="cm" role="status"></div>';
 el.innerHTML=h}
-document.getElementById('cl').onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.co){var cm=document.getElementById('cm');if(!user){cm.textContent='Please log in to check out.';location.hash='login';return}var g=function(i){return(document.getElementById(i)||{value:''}).value.trim()},co={cph:g('cph'),cph2:g('cph2'),cem:g('cem'),cad:g('cad'),cdt:g('cdt')};window.co=co;
+document.getElementById('cl').onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.rd){window.redeem=window.redeem?0:1;rc();return}if(b.dataset.co){var cm=document.getElementById('cm');if(!user){cm.textContent='Please log in to check out.';location.hash='login';return}var g=function(i){return(document.getElementById(i)||{value:''}).value.trim()},co={cph:g('cph'),cph2:g('cph2'),cem:g('cem'),cad:g('cad'),cdt:g('cdt')};window.co=co;
 if(!/^(\+?20|0)1[0125]\d{8}$/.test(co.cph.replace(/[\s-]/g,''))){cm.textContent='Enter a valid Egyptian mobile number.';return}
 if(co.cph2&&!/^\+?\d{8,15}$/.test(co.cph2.replace(/[\s-]/g,''))){cm.textContent='The alternative phone number is not valid.';return}
 if(!/^\S+@\S+\.\S+$/.test(co.cem)){cm.textContent='Enter a valid email.';return}
@@ -484,7 +499,7 @@ window.addEventListener('hashchange',route);hd();route();
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,doc,getDoc,setDoc,addDoc,collection,serverTimestamp,arrayUnion,arrayRemove,getDocs,query,where} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,doc,getDoc,setDoc,addDoc,collection,serverTimestamp,arrayUnion,arrayRemove,getDocs,query,where,increment} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const app=initializeApp({
   apiKey:"AIzaSyAk3eUzXSS6MIm_UAfY-VYE0bQnK36771w",
   authDomain:"ilmusli.firebaseapp.com",
@@ -498,24 +513,49 @@ const db=getFirestore(app);
 const $=id=>document.getElementById(id);
 const lf=document.getElementById('lf'),lo=document.getElementById('lo');
 const msg=t=>{lo.style.display='block';lo.textContent=t};
+const FK='ilm-fid',LK='ilm-lock',fidOK=!!window.PublicKeyCredential;
+const fidGet=()=>{try{return JSON.parse(localStorage.getItem(FK)||'null')}catch(x){return null}};
+const lockOn=u=>{try{const f=fidGet();return !!u&&!!f&&f.uid===u.uid&&localStorage.getItem(LK)==='1'}catch(x){return false}};
+const b64=b=>btoa(String.fromCharCode.apply(null,new Uint8Array(b))),unb=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const rnd=()=>crypto.getRandomValues(new Uint8Array(32));
+window.fidEnable=async u=>{
+  const c=await navigator.credentials.create({publicKey:{challenge:rnd(),rp:{name:'ilmusli'},user:{id:new TextEncoder().encode(u.uid).slice(0,64),name:u.email,displayName:u.displayName||u.email},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},timeout:60000}});
+  localStorage.setItem(FK,JSON.stringify({uid:u.uid,id:b64(c.rawId)}));
+};
+const fidAuth=async()=>{const f=fidGet();await navigator.credentials.get({publicKey:{challenge:rnd(),allowCredentials:[{type:'public-key',id:unb(f.id),transports:['internal']}],userVerification:'required',timeout:60000}});return f};
+const fidUI=()=>{$('lfid').style.display=(fidGet()&&fidOK)?'':'none';$('lfo').style.display=window.locked?'':'none'};
+const unlock=u=>{try{localStorage.removeItem(LK)}catch(x){}window.locked=false;window.user=u.displayName||u.email.split('@')[0];window.uemail=u.email;try{localStorage.setItem('ilm-user',window.user)}catch(x){}if(window.loadUD)window.loadUD(u);hd();fidUI()};
+const PTS_RATE=10;
+const mkMember=async u=>{for(let i=0;i<6;i++){const n=String(Math.floor(10000000+crypto.getRandomValues(new Uint32Array(1))[0]/4294967296*90000000)),k='M'+n;const sn=await getDoc(doc(db,'codes',k));if(sn.exists())continue;await setDoc(doc(db,'codes',k),{uid:u.uid});await setDoc(doc(db,'users',u.uid),{memberId:n},{merge:true});window.ud=Object.assign({},window.ud,{memberId:n});return n}};
+const mkIlm=async u=>{for(let i=0;i<6;i++){const r=new Uint8Array(6);crypto.getRandomValues(r);const c='ILM-'+Array.from(r,x=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[x%32]).join('');const sn=await getDoc(doc(db,'codes',c));if(sn.exists())continue;await setDoc(doc(db,'codes',c),{uid:u.uid,email:u.email});await setDoc(doc(db,'users',u.uid),{ilm:c},{merge:true});window.ud=Object.assign({},window.ud,{ilm:c});return c}};
+$('lfid').onclick=async()=>{try{const f=await fidAuth(),u=auth.currentUser;if(!u||u.uid!==f.uid){localStorage.removeItem(FK);localStorage.removeItem(LK);window.locked=false;fidUI();msg('Session expired. Please log in with your password.');return}unlock(u);lo.style.display='none';location.hash='profile'}catch(err){msg('Face ID failed or was cancelled.')}};
+$('lfo').onclick=async()=>{try{localStorage.removeItem(FK);localStorage.removeItem(LK)}catch(x){}window.locked=false;await signOut(auth);fidUI();location.hash='home'};
+setTimeout(fidUI,0);
 lf.onsubmit=async e=>{
   e.preventDefault();
   const f=lf.elements;
   try{
     if(window.reg){
-      const c=await createUserWithEmailAndPassword(auth,f.e.value,f.p.value);
+      if(f.e.value.indexOf('@')<0)throw{code:'auth/invalid-email'};
+      const c=await createUserWithEmailAndPassword(auth,f.e.value.trim(),f.p.value);
       if(f.n.value) await updateProfile(c.user,{displayName:f.n.value});
       window.user=f.n.value||f.e.value.split('@')[0];hd();
       try{await setDoc(doc(db,'users',c.user.uid),{name:window.user,createdAt:serverTimestamp()},{merge:true})}catch(x){}
       if(window.reg)document.getElementById('lm').click();
     }else{
-      await signInWithEmailAndPassword(auth,f.e.value,f.p.value);
+      let em=f.e.value.trim();
+      if(em.indexOf('@')<0){
+        try{const sn=await getDoc(doc(db,'codes',em.toUpperCase()));if(!sn.exists())throw 0;em=sn.data().email}catch(x){throw{code:'auth/invalid-credential'}}
+      }
+      await signInWithEmailAndPassword(auth,em,f.p.value);
     }
+    try{localStorage.removeItem(LK)}catch(x){}
+    if(window.locked&&auth.currentUser)unlock(auth.currentUser);
     lf.reset();lo.style.display='none';location.hash='profile';
     if(window.renderProfile)window.renderProfile();
   }catch(err){
     msg(({
-      'auth/invalid-credential':'Wrong email or password.',
+      'auth/invalid-credential':'Wrong email, ILM code or password.',
       'auth/email-already-in-use':'This email is already registered.',
       'auth/weak-password':'Password must be at least 6 characters.',
       'auth/invalid-email':'Invalid email address.',
@@ -525,10 +565,10 @@ lf.onsubmit=async e=>{
 };
 window.authReady=false;
 onAuthStateChanged(auth,u=>{
-  window.user=u?(u.displayName||u.email.split('@')[0]):'';window.uemail=u?u.email:'';
+  window.locked=lockOn(u);window.user=(u&&!window.locked)?(u.displayName||u.email.split('@')[0]):'';window.uemail=(u&&!window.locked)?u.email:'';fidUI();
   try{localStorage.setItem('ilm-user',window.user)}catch(x){}
   window.authReady=true;
-  if(u){if(window.loadUD)window.loadUD(u)}else{window.ud={};window.wish=[]}
+  if(u&&!window.locked){if(window.loadUD)window.loadUD(u)}else{window.ud={};window.wish=[]}
   hd();route();
 });
 const mk=x=>'data:image/svg+xml,'+encodeURIComponent(x);
@@ -547,7 +587,7 @@ if((o.status==='Pending'||o.status==='Confirmed')&&age<DAY)return '<div class="a
 if(o.status==='Delivered'&&Date.now()-(o.deliveredAt||o.createdAt)<14*DAY)return '<details class="rq"><summary>REQUEST RETURN</summary><select><option>Wrong size</option><option>Not as expected</option><option>Defective or damaged</option><option>Wrong item received</option><option>Other</option></select><textarea placeholder="Tell us more (optional)" maxlength="500"></textarea><button class="btn solid" type="button" data-rt="'+esc(o.id)+'">SEND RETURN REQUEST</button></details>';return ''};
 const syncCancel=async id=>{const u=auth.currentUser;if(!u)return;try{const r=await getDocs(query(collection(db,'orders'),where('uid','==',u.uid),where('id','==',id)));await Promise.all(r.docs.map(d=>setDoc(d.ref,{status:'Cancelled',cancelledAt:Date.now(),cancelledBy:'customer'},{merge:true})))}catch(e){console.error('cancel sync failed',e)}};
 const ADMINS=['leilmusli@gmail.com','spiderleil@gmail.com'];
-window.isAdmin=()=>{const u=auth.currentUser;return !!u&&ADMINS.indexOf((u.email||'').toLowerCase())>=0};
+window.isAdmin=()=>{const u=auth.currentUser;return !!u&&!window.locked&&ADMINS.indexOf((u.email||'').toLowerCase())>=0};
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pm=(t,bad)=>{const o=$('pm');o.textContent=t||'';o.classList.toggle('err',!!bad)};
 const ps=(t,bad)=>{const o=$('ps');o.style.display='block';o.textContent=t;o.classList.toggle('bad',!!bad)};
@@ -566,7 +606,7 @@ const setAv=()=>{
 const showTab=t=>{
   window.pTab=t;
   document.querySelectorAll('#ptabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
-  ['col','ord','wl'].forEach(k=>{$('t'+k).style.display=k===t?'block':'none'});
+  ['col','ord','wl','pts'].forEach(k=>{$('t'+k).style.display=k===t?'block':'none'});
 };
 const gridOf=(gid,eid,ids,msg)=>{
   const g=$(gid),e=$(eid);ids=ids.filter(i=>P[i]);
@@ -579,6 +619,12 @@ const renderLists=()=>{
   gridOf('pcol','pce',owned,'Pieces you order will collect here.');
   gridOf('pwl','pwe',window.wish||[],'Tap ADD TO WISHLIST on any piece to keep it here.');
   $('tord').innerHTML=os.length?os.map(o=>'<div class="ord"><div class="ordh"><span>'+esc(o.id)+'</span><span>'+esc(o.status).toUpperCase()+'</span></div>'+trkH(o)+'<div class="ordl">'+o.items.map(i=>esc(i.q)+' \u00d7 '+esc(i.name)+' \u00b7 '+esc(i.color)+' \u00b7 '+esc(i.size)).join('<br>')+'</div><div class="ordt"><span>'+new Date(o.createdAt).toLocaleDateString('en-GB')+'</span><b>'+F(o.total)+'</b></div>'+actH(o)+'</div>').join(''):'<div class="emp">No orders yet.</div>';
+};
+const renderPts=()=>{
+  const d=window.ud||{},p=d.points||0,os=(d.orders||[]).filter(o=>o.pointsUsed).sort((a,b)=>b.createdAt-a.createdAt);
+  $('tpts').innerHTML='<div class="ptb"><span class="sl">ILMUSLI POINTS</span><b>'+p.toLocaleString('en-US')+'</b><div class="pbar"><i style="width:'+Math.min(100,p/10)+'%"></i></div><small>'+(p>=1000?'You can use 1,000 points for a free piece in your next order.':(1000-p).toLocaleString('en-US')+' points to your next free piece.')+'</small></div>'
+  +'<div class="sec" style="margin-top:18px;max-width:none"><div class="sr"><div><span class="sl">EARN</span>1 point for every 10 EGP, added when your order is delivered.</div></div><div class="sr"><div><span class="sl">REDEEM</span>1,000 points = one free piece. One piece per order.</div></div></div>'
+  +(os.length?'<div style="margin-top:18px">'+os.map(o=>'<div class="ord"><div class="ordh"><span>'+esc(o.id)+'</span><span>\u2212'+Number(o.pointsUsed).toLocaleString('en-US')+' POINTS</span></div></div>').join('')+'</div>':'');
 };
 const fillView=u=>{
   const d=window.ud||{};
@@ -594,14 +640,35 @@ const fillView=u=>{
   av=d.avatar||(photo?'photo':'default');
   if(av!=='letter'&&av!=='photo')av='default';
   setAv();renderLists();showTab(window.pTab||'col');$('padm').style.display=window.isAdmin()?'':'none';
+  $('ilmc').textContent=d.ilm||'\u2014';
+  $('mid').textContent=d.memberId||'\u2014';
+  $('ilmp').textContent=(d.points||0).toLocaleString('en-US');
+  renderPts();
+  const fo=fidGet(),on=!!fo&&fo.uid===u.uid;
+  $('fidt').textContent=fidOK?(on?'On for this device':'Off'):'Not supported here';
+  $('fidb').textContent=on?'TURN OFF':'ENABLE';$('fidb').style.display=fidOK?'':'none';
+};
+$('ilmcp').onclick=async()=>{const c=$('ilmc').textContent;if(c.indexOf('ILM-')!==0)return;try{await navigator.clipboard.writeText(c);pm('Code copied.')}catch(x){pm(c)}};
+$('fidb').onclick=async()=>{
+  const u=auth.currentUser;if(!u||window.locked)return;const f=fidGet();
+  try{
+    if(f&&f.uid===u.uid){localStorage.removeItem(FK);localStorage.removeItem(LK);pm('Face ID turned off.')}
+    else{
+      if(!fidOK||!(await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())){pm('Face ID is not available on this device or browser.');return}
+      await window.fidEnable(u);pm('Face ID is on. Logging out will lock this device instead of signing you out.');
+    }
+  }catch(err){pm('Could not set up Face ID.')}
+  fillView(u);fidUI();
 };
 window.loadUD=async u=>{
   try{const sn=await getDoc(doc(db,'users',u.uid));window.ud=sn.exists()?sn.data():{}}catch(x){window.ud={}}
   window.wish=window.ud.wish||[];
+  if(!window.ud.ilm){try{await mkIlm(u)}catch(x){}}
+  if(!window.ud.memberId){try{await mkMember(u)}catch(x){}}
   try{if(/^#p-/.test(location.hash))draw()}catch(x){}
 };
 window.renderProfile=async()=>{
-  const u=auth.currentUser;if(!u)return;
+  const u=auth.currentUser;if(!u||window.locked)return;
   fillView(u);$('ps').style.display='none';$('avp').classList.remove('open');pm('');
   await window.loadUD(u);
   if(auth.currentUser!==u)return;
@@ -650,6 +717,7 @@ function openCrop(url){
 $('pp').onchange=e=>{const f=e.target.files[0];if(!f)return;openCrop(URL.createObjectURL(f));e.target.value='';};
 $('tord').onclick=async e=>{const b=e.target.closest('button'),u=auth.currentUser;if(!b||!u)return;const d=b.dataset;
 if(d.cx){if(!confirm('Cancel this order?'))return;b.disabled=true;const o=await upOrder(d.cx,x=>(Date.now()-x.createdAt<DAY&&(x.status==='Pending'||x.status==='Confirmed'))?Object.assign(x,{status:'Cancelled',cancelledAt:Date.now()}):null);if(o)await syncCancel(d.cx);
+if(o&&o.pointsUsed){setTimeout(async()=>{try{await window.loadUD(u);fillView(u)}catch(x){}},3500)}
 if(o){notify('Order cancelled '+o.id,ofields(o,u));pm('Order cancelled.')}else pm('This order can no longer be cancelled.',1);renderLists()}
 else if(d.rt){const w=b.closest('details'),r=w.querySelector('select').value,t=w.querySelector('textarea').value.trim();b.disabled=true;
 const o=await upOrder(d.rt,x=>x.status==='Delivered'&&!x.ret?Object.assign(x,{ret:{status:'Requested',reason:r,note:t,at:Date.now()}}):null);
@@ -678,7 +746,7 @@ $('pf').onsubmit=async e=>{
   b.disabled=false;
 };
 window.toggleWish=async id=>{
-  const u=auth.currentUser;if(!u){location.hash='login';return}
+  const u=auth.currentUser;if(!u||window.locked){location.hash='login';return}
   const had=(window.wish||[]).indexOf(id)>=0,prev=window.wish||[];
   window.wish=had?prev.filter(x=>x!==id):prev.concat(id);
   draw();
@@ -687,16 +755,19 @@ window.toggleWish=async id=>{
 };
 window.placeOrder=async()=>{
   const u=auth.currentUser,items0=window.cart||[];
-  if(!u||!items0.length)return false;
+  if(!u||window.locked||!items0.length)return false;
+  let pts0=0;try{const s0=await getDoc(doc(db,'users',u.uid));pts0=(s0.exists()&&s0.data().points)||0}catch(x){}
   let total=0;
   const items=items0.map(c=>{const p=P[c.id],pr=sale(c.id);total+=pr*c.q;return{id:c.id,name:p[0],color:p[3][c.c],size:p[4][c.s],q:c.q,price:pr}});
   const disc=window.code?Math.round(total*(window.pct||0)/100):0,ship=window.free?0:(SHIP[window.gov]||0);
-  const order={id:'ILM-'+Date.now().toString(36).toUpperCase(),createdAt:Date.now(),status:'Pending',items:items,sub:total,discount:disc,shipping:ship,gov:window.gov,area:window.area||'',code:window.code||'',payment:window.pay||'Cash on delivery',total:total-disc+ship,address:(window.co&&window.co.cad)||(window.ud&&window.ud.address)||'',phone:(window.co||{}).cph||'',phone2:(window.co||{}).cph2||'',contactEmail:(window.co||{}).cem||'',notes:(window.co||{}).cdt||''};
+  const un=[];items.forEach(i=>{if(+i.id===12)return;for(let k=0;k<i.q;k++)un.push(i.price)});un.sort((a,b)=>b-a);
+  const rn=Math.max(0,Math.min(window.redeem||0,1,Math.floor(pts0/1000),un.length));let rv=0;for(let k=0;k<rn;k++)rv+=un[k];rv=Math.min(rv,total-disc);
+  const order={id:'ILM-'+Date.now().toString(36).toUpperCase(),createdAt:Date.now(),status:'Pending',items:items,sub:total,discount:disc,shipping:ship,gov:window.gov,area:window.area||'',code:window.code||'',payment:window.pay||'Cash on delivery',total:total-disc-rv+ship,redeem:rn,redeemValue:rv,pointsUsed:rn*1000,address:(window.co&&window.co.cad)||(window.ud&&window.ud.address)||'',phone:(window.co||{}).cph||'',phone2:(window.co||{}).cph2||'',contactEmail:(window.co||{}).cem||'',notes:(window.co||{}).cdt||''};
   try{await setDoc(doc(db,'users',u.uid),{orders:arrayUnion(order)},{merge:true})}catch(err){return false}
   const od=Object.assign({uid:u.uid,email:u.email,name:(window.ud&&window.ud.name)||u.displayName||''},order);try{await addDoc(collection(db,'orders'),od)}catch(x){try{await addDoc(collection(db,'orders'),od)}catch(y){console.error('order sync failed',y)}}
-  notify('New order '+order.id,ofields(order,u));try{await setDoc(doc(db,'users',u.uid),{phone:order.phone,phone2:order.phone2},{merge:true});window.ud=Object.assign({},window.ud,{phone:order.phone,phone2:order.phone2})}catch(x){}window.ud=Object.assign({},window.ud,{orders:((window.ud&&window.ud.orders)||[]).concat([order])});
+  notify('New order '+order.id,ofields(order,u));try{await setDoc(doc(db,'users',u.uid),{phone:order.phone,phone2:order.phone2},{merge:true});window.ud=Object.assign({},window.ud,{phone:order.phone,phone2:order.phone2})}catch(x){}window.ud=Object.assign({},window.ud,{orders:((window.ud&&window.ud.orders)||[]).concat([order]),points:Math.max(0,pts0-rn*1000)});
   if(window.free){try{await setDoc(doc(db,'subscribers',window.code),{used:true,usedAt:Date.now()},{merge:true})}catch(x){}}
-  window.cart=[];window.area='';window.code='';window.pct=0;window.free=0;save();window.lastOrder=order;window.pTab='ord';location.hash='confirm';
+  window.redeem=0;window.cart=[];window.area='';window.code='';window.pct=0;window.free=0;save();window.lastOrder=order;window.pTab='ord';location.hash='confirm';
   return true;
 };
 
@@ -706,7 +777,7 @@ window.renderAdmin=async()=>{
     const r=await Promise.all(['orders','messages','subscribers'].map(n=>getDocs(collection(db,n))));
     const L=x=>x.docs.map(d=>Object.assign({_id:d.id},d.data()));
     const os=L(r[0]).sort((a,b)=>b.createdAt-a.createdAt),ms=L(r[1]),ss=L(r[2]);
-    A.innerHTML='<h3 class="fh">ORDERS ('+os.length+')</h3>'+(os.map(o=>'<div class="ord"><div class="ordh"><span>'+esc(o.id)+'</span><span>'+esc(o.email)+'</span></div><div class="ordl">'+o.items.map(i=>esc(i.q)+' \u00d7 '+esc(i.name)+' \u00b7 '+esc(i.color)+' \u00b7 '+esc(i.size)).join('<br>')+'<br><span style="color:var(--muted)">'+esc(o.gov||'')+' \u00b7 '+esc(o.area||'')+' \u00b7 '+esc(o.address||'')+'<br>'+esc(o.phone||'')+(o.phone2?' / '+esc(o.phone2):'')+' \u00b7 '+esc(o.contactEmail||'')+(o.notes?'<br>'+esc(o.notes):'')+'</span></div><div class="ordt"><select data-oid="'+o._id+'" data-uid="'+esc(o.uid)+'" data-id="'+esc(o.id)+'">'+STEPS.concat('Cancelled').map(x=>'<option'+(x===o.status?' selected':'')+'>'+x+'</option>').join('')+'</select>'+(o.ret?'<select data-oid="'+o._id+'" data-uid="'+esc(o.uid)+'" data-id="'+esc(o.id)+'" data-ret="1" title="Return">'+RST.concat('Rejected').map(x=>'<option'+(x===o.ret.status?' selected':'')+'>'+x+'</option>').join('')+'</select>':'')+'<b>'+F(o.total)+'</b></div></div>').join('')||'<div class="emp">No orders yet.</div>')+'<h3 class="fh">MESSAGES ('+ms.length+')</h3>'+ms.map(x=>'<div class="ord"><div class="ordh"><span>'+esc(x.name)+'</span><span>'+esc(x.email)+'</span></div><div class="ordl">'+esc(x.message)+'</div></div>').join('')+'<h3 class="fh">SUBSCRIBERS ('+ss.length+')</h3><div class="ordl">'+ss.map(x=>esc(x.email)+' \u00b7 '+esc(x.code||'')+(x.used?' (used)':'')).join('<br>')+'</div>';
+    A.innerHTML='<h3 class="fh">ORDERS ('+os.length+')</h3>'+(os.map(o=>'<div class="ord"><div class="ordh"><span>'+esc(o.id)+'</span><span>'+esc(o.email)+'</span></div><div class="ordl">'+o.items.map(i=>esc(i.q)+' \u00d7 '+esc(i.name)+' \u00b7 '+esc(i.color)+' \u00b7 '+esc(i.size)).join('<br>')+'<br><span style="color:var(--muted)">'+esc(o.gov||'')+' \u00b7 '+esc(o.area||'')+' \u00b7 '+esc(o.address||'')+'<br>'+esc(o.phone||'')+(o.phone2?' / '+esc(o.phone2):'')+' \u00b7 '+esc(o.contactEmail||'')+(o.notes?'<br>'+esc(o.notes):'')+(o.needsReview?'<br><b>\u26a0 POINTS CHECK FAILED. Review before shipping.</b>':'')+(o.pointsUsed?'<br>ILMUSLI points used: '+esc(o.pointsUsed)+' (\u2212'+F(o.redeemValue||0)+')':'')+'</span></div><div class="ordt"><select data-oid="'+o._id+'" data-uid="'+esc(o.uid)+'" data-id="'+esc(o.id)+'">'+STEPS.concat('Cancelled').map(x=>'<option'+(x===o.status?' selected':'')+'>'+x+'</option>').join('')+'</select>'+(o.ret?'<select data-oid="'+o._id+'" data-uid="'+esc(o.uid)+'" data-id="'+esc(o.id)+'" data-ret="1" title="Return">'+RST.concat('Rejected').map(x=>'<option'+(x===o.ret.status?' selected':'')+'>'+x+'</option>').join('')+'</select>':'')+'<b>'+F(o.total)+'</b></div></div>').join('')||'<div class="emp">No orders yet.</div>')+'<h3 class="fh">MESSAGES ('+ms.length+')</h3>'+ms.map(x=>'<div class="ord"><div class="ordh"><span>'+esc(x.name)+'</span><span>'+esc(x.email)+'</span></div><div class="ordl">'+esc(x.message)+'</div></div>').join('')+'<h3 class="fh">SUBSCRIBERS ('+ss.length+')</h3><div class="ordl">'+ss.map(x=>esc(x.email)+' \u00b7 '+esc(x.code||'')+(x.used?' (used)':'')).join('<br>')+'</div>';
   }catch(err){A.innerHTML='<div class="emp">Could not load: '+esc(err.code||err.message)+'</div>'}
 };
 $('adm').onchange=async e=>{
@@ -728,7 +799,11 @@ $('df').onsubmit=async e=>{
   catch(err){m.textContent='Could not subscribe: '+(err.code||err.message)}
 };
 window.checkSub=async c=>{try{const sn=await getDoc(doc(db,'subscribers',c));return sn.exists()&&sn.data().used===false}catch(x){return false}};
-$('lout').onclick=async()=>{await signOut(auth);location.hash='home'};
+$('lout').onclick=async()=>{
+  const f=fidGet(),u=auth.currentUser;
+  if(f&&u&&f.uid===u.uid&&fidOK){try{localStorage.setItem(LK,'1')}catch(x){}window.locked=true;window.user='';window.uemail='';window.ud={};window.wish=[];hd();fidUI();location.hash='login';return}
+  await signOut(auth);location.hash='home';
+};
 $('cf').onsubmit=async e=>{
   e.preventDefault();
   const fm=e.target,g=n=>fm.elements.namedItem(n).value.trim(),b=fm.querySelector('button[type=submit]'),o=$('ok');
